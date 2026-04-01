@@ -52,21 +52,6 @@ async function sendToTelegram(formData, files) {
       parse_mode: 'HTML'
     });
 
-    // Send MonPay QR image if exists
-    if (files.monpayQr) {
-      const monpayPath = files.monpayQr[0].path;
-      const formDataTelegram = new FormData();
-      formDataTelegram.append('chat_id', TELEGRAM_CHAT_ID);
-      formDataTelegram.append('caption', '💳 MonPay QR код');
-      formDataTelegram.append('photo', fs.createReadStream(monpayPath));
-
-      await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, formDataTelegram, {
-        headers: formDataTelegram.getHeaders()
-      });
-
-      fs.unlinkSync(monpayPath);
-    }
-
     // Send graffiti image if exists
     if (files.graffitiImage) {
       const graffitiPath = files.graffitiImage[0].path;
@@ -96,7 +81,6 @@ app.get('/', (req, res) => {
 
 // Form submission endpoint
 app.post('/api/submit', upload.fields([
-  { name: 'monpayQr', maxCount: 1 },
   { name: 'graffitiImage', maxCount: 1 }
 ]), async (req, res) => {
   try {
@@ -118,9 +102,9 @@ app.post('/api/submit', upload.fields([
       return res.status(400).json({ error: 'Алтын хэмжээ 100-ээс доош байх боломжгүй!' });
     }
 
-    // Check if images are provided
-    if (!req.files || !req.files.monpayQr || !req.files.graffitiImage) {
-      return res.status(400).json({ error: 'QR код болон GRAFFITI зургийг сонгоно уу!' });
+    // Check if graffiti image is provided
+    if (!req.files || !req.files.graffitiImage) {
+      return res.status(400).json({ error: 'GRAFFITI зургийг сонгоно уу!' });
     }
 
     // Send to Telegram
