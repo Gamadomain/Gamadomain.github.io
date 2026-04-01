@@ -174,11 +174,9 @@
 
             <div class="form-section">
                 <div class="section-number">3</div>
-                <label>💳 MonPay QR код аа явуулна уу</label>
-                <input type="file" id="monpayQr" name="monpayQr" accept="image/*" required>
-                <div class="upload-area" id="monpayArea">
-                    <p>Зургийг эндээ сүүлүүлэх</p>
-                    <p class="file-name" id="monpayFile"></p>
+                <label>💳 MonPay QR код</label>
+                <div style="text-align: center; background: #f0f6ff; padding: 15px; border-radius: 4px;">
+                    <img id="qrImage" src="qr-code.png" alt="MonPay QR" style="max-width: 100%; height: auto; max-height: 200px;">
                 </div>
             </div>
 
@@ -210,22 +208,14 @@
 
     <script>
         const form = document.getElementById('submitForm');
-        const monpayQr = document.getElementById('monpayQr');
         const graffitiImage = document.getElementById('graffitiImage');
-        const monpayArea = document.getElementById('monpayArea');
         const graffitiArea = document.getElementById('graffitiArea');
-        const monpayFile = document.getElementById('monpayFile');
         const graffitiFile = document.getElementById('graffitiFile');
         const loading = document.getElementById('loading');
         const success = document.getElementById('success');
         const error = document.getElementById('error');
 
-        monpayArea.addEventListener('click', () => monpayQr.click());
         graffitiArea.addEventListener('click', () => graffitiImage.click());
-
-        monpayQr.addEventListener('change', () => {
-            monpayFile.textContent = monpayQr.files[0] ? '✅ ' + monpayQr.files[0].name : '';
-        });
 
         graffitiImage.addEventListener('change', () => {
             graffitiFile.textContent = graffitiImage.files[0] ? '✅ ' + graffitiImage.files[0].name : '';
@@ -244,7 +234,6 @@
 
             if (!phone) { error.textContent = '❌ Утасны дугаарыг оруулна уу!'; error.style.display = 'block'; return; }
             if (!gold || parseInt(gold) < 100) { error.textContent = '❌ Алтын хэмжээ 100-ээс доош!'; error.style.display = 'block'; return; }
-            if (!monpayQr.files[0]) { error.textContent = '❌ MonPay QR cod аа сонгоно уу!'; error.style.display = 'block'; return; }
             if (!graffitiImage.files[0]) { error.textContent = '❌ GRAFFITI зургийг сонгоно уу!'; error.style.display = 'block'; return; }
             if (!accountName || !transferTime || !transferAmount) { error.textContent = '❌ Бүх талбарыг бөглөнө уу!'; error.style.display = 'block'; return; }
 
@@ -255,7 +244,6 @@
                 const formData = new FormData();
                 formData.append('phone', phone);
                 formData.append('gold', gold);
-                formData.append('monpayQr', monpayQr.files[0]);
                 formData.append('graffitiImage', graffitiImage.files[0]);
                 formData.append('accountName', accountName);
                 formData.append('transferTime', transferTime);
@@ -267,7 +255,6 @@
                 if (res.ok) {
                     success.style.display = 'block';
                     form.reset();
-                    monpayFile.textContent = '';
                     graffitiFile.textContent = '';
                 } else {
                     const err = await res.json();
@@ -285,3 +272,4 @@
     </script>
 </body>
 </html>
+
