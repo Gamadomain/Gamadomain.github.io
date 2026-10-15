@@ -1,0 +1,19 @@
+  .card {
+
+    background: #ffffff;
+    
+    border: 1px solid #d5dae8;
+    
+    border-radius: 16px;
+    
+    padding: 16px;
+    
+    }
+    
+    .card p { color: #5a6485; }
+    
+    .card.featured {
+    
+    border: 2px solid #c4511c;
+    
+    }
