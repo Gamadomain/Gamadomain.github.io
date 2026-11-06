@@ -1,19 +1,49 @@
-  .card {
+<section id="projects" class="section">
 
-    background: #ffffff;
-    
-    border: 1px solid #d5dae8;
-    
-    border-radius: 16px;
-    
-    padding: 16px;
-    
-    }
-    
-    .card p { color: #5a6485; }
-    
-    .card.featured {
-    
-    border: 2px solid #c4511c;
-    
-    }
+<div class="container">
+
+<h2>Төслүүд</h2>
+
+<div class="cards">
+
+<article class="card featured">
+
+<img src="images/weather.webp" alt="…">
+
+<h3>Цаг агаарын апп</h3>
+
+<p>Агаарын чанарыг харуулна.</p>
+
+<a href="#">Үзэх →</a>
+
+</article>
+
+<!-- дахин 2 карт -->
+
+</div>
+
+</div>
+
+</section>
+
+<section id="about" class="section about">
+
+<div class="container about-inner">
+
+<img src="images/avatar.webp"
+
+class="avatar" alt="…">
+
+<div>…Миний тухай…</div>
+
+</div>
+
+</section>
+
+<!-- #contact хэсэг -->
+
+</main>
+
+<footer class="site-footer">…</footer>
+
+</body>
